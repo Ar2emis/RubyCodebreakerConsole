@@ -1,0 +1,12 @@
+# bundler
+/.bundle/
+/vendor/bundle/
+
+# simplecov
+/coverage/
+
+# rspec
+.rspec_status
+
+# database
+/db/

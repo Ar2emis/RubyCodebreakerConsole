@@ -13,3 +13,11 @@ Style/Documentation:
 Metrics/BlockLength:
   Exclude:
     - 'spec/*/*spec.rb'
+  
+RSpec/SubjectStub:
+  Exclude:
+    - 'spec/*/*state_spec.rb'
+
+RSpec/ExpectOutput:
+  Exclude:
+    - 'spec/*/*state_spec.rb'

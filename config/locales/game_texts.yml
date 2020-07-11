@@ -1,0 +1,46 @@
+en:
+  greeting: |+
+    Codebreaker Console Game
+    Welcome to Codebreaker game!
+
+  menu: |+
+    Menu:
+
+    %{start}
+    %{rules}
+    %{stats}
+    %{exit}
+
+  wrong_command_message: "\nYou have passed unexpected command. Please choose one from listed commands\n"
+  play_message: |+
+    
+    Enter a guess (4-digit code)
+    Take a hint (enter '%{hint_command}')
+    Exit to menu (enter '%{exit_command}')
+
+  statistic_title: "\nUser statistics\n\n"
+  statistic_body: |+
+    Rating: %{rating}
+    Name: %{name}
+    Difficulty: %{difficulty}
+    Attempts total: %{total_attempts}
+    Attempts used: %{used_attempts}
+    Hints total: %{total_hints}
+    Hints used: %{used_hints}
+
+  empty_statistic: "No saved statistic now\n\n"
+  exit_message: |
+
+    Good bye!
+    Press 'Enter' to exit...
+  user_name_message: "\nEnter your name: "
+  invalid_user_name_message: "\nInvalid name! Name length should be from 3 to 20 characters. Try again\n"
+  difficulty_message: "\nChoose difficulty: '%{easy}', '%{medium}', '%{hell}'\n"
+  invalid_difficulty_message: "\nInvalid difficulty! Choose difficulty from the listed\n\n"
+  hint_message: "\nHint: %{digit}"
+  no_hints_left_message: "\nNo hints left"
+  coincidence_message: "\nCoincidence: %{match}\n"
+  win_message: "\nYou won! Code was %{code}"
+  save_statistic_message: "Do you want to save statistic? (yes/no)"
+  lose_message: "You lose. Code was %{code}"
+  restart_message: "\nDo you want to restart the game? (yes/no)"

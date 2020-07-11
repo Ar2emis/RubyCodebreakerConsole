@@ -1,5 +1,4 @@
-# bundler
-/.bundle/
+# bundler (.bundle/config is needed to get gem from private repository)
 /vendor/bundle/
 
 # simplecov

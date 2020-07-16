@@ -5,20 +5,16 @@ module CodebreakerConsole
     YES = 'yes'
 
     def execute
-      puts I18n.t(:win_message, code: context.game.code.join)
-
-      save_statistic
-
+      puts(I18n.t(:win_message, code: context.game.code.join))
+      ask_to_save_statistic
       context.transit_to(RestartState.new)
     end
 
     private
 
-    def save_statistic
+    def ask_to_save_statistic
       puts(I18n.t(:save_statistic_message))
-      answer = gets.chomp
-
-      context.game.save_statistic if answer.downcase == YES
+      context.game.save_statistic if user_input == YES
     end
   end
 end

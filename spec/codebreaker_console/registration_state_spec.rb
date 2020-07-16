@@ -43,12 +43,6 @@ RSpec.describe CodebreakerConsole::RegistrationState do
         state.execute
         expect(context).to have_received(:user=)
       end
-
-      it "exits from the game if user has entered '#{described_class::EXIT_COMMAND}'" do
-        allow(state).to receive(:gets).and_return(described_class::EXIT_COMMAND)
-        state.execute
-        expect(context).not_to have_received(:user=)
-      end
     end
   end
 end

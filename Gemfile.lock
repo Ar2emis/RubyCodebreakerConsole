@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/Ar2emis/RubyCodebreaker.git
-  revision: 98723b4ce7fa8bbf3f7d40558dbdad8d89a52bfb
+  revision: f296e6a527d9c7efaa029826ce74090391fbd894
   branch: development
   specs:
     codebreaker (0.1.0)

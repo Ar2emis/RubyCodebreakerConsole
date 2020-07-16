@@ -37,12 +37,6 @@ RSpec.describe CodebreakerConsole::PlayState do
         $stdout = original_stdout
       end
 
-      it "exits from the game if user has entered '#{described_class::EXIT_COMMAND}'" do
-        allow(state).to receive(:gets).and_return(described_class::EXIT_COMMAND)
-        state.execute
-        expect(state.execute).to eq CodebreakerConsole::ExitState
-      end
-
       it "gives a hint if user has entered '#{described_class::HINT_COMMAND}'" do
         allow(state).to receive(:gets).and_return(described_class::HINT_COMMAND)
         state.execute

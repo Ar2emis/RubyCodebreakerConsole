@@ -5,7 +5,7 @@ module CodebreakerConsole
     def execute
       puts(I18n.t(:exit_message))
       gets.chomp
-      abort
+      exit
     end
   end
 end

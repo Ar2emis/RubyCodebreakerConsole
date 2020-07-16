@@ -5,7 +5,7 @@ RSpec.describe CodebreakerConsole::ExitState do
 
   before do
     allow(state).to receive(:gets).and_return('')
-    allow(state).to receive(:abort)
+    allow(state).to receive(:exit)
   end
 
   describe '#execute' do

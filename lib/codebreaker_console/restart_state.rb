@@ -6,7 +6,7 @@ module CodebreakerConsole
 
     def execute
       puts I18n.t(:restart_message)
-      answer = gets.chomp
+      answer = user_input
 
       if answer.downcase == YES
         context.game.restart

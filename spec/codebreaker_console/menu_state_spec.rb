@@ -36,8 +36,7 @@ RSpec.describe CodebreakerConsole::MenuState do
       commands = {
         described_class::START_COMMAND => CodebreakerConsole::RegistrationState,
         described_class::RULES_COMMAND => CodebreakerConsole::RulesState,
-        described_class::STATS_COMMAND => CodebreakerConsole::StatsState,
-        described_class::EXIT_COMMAND => CodebreakerConsole::ExitState
+        described_class::STATS_COMMAND => CodebreakerConsole::StatsState
       }
 
       commands.each do |command, state_to|

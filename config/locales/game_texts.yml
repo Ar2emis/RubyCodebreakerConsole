@@ -35,7 +35,7 @@ en:
     Press 'Enter' to exit...
   user_name_message: "\nEnter your name: "
   invalid_user_name_message: "\nInvalid name! Name length should be from 3 to 20 characters. Try again\n"
-  difficulty_message: "\nChoose difficulty: '%{easy}', '%{medium}', '%{hell}'\n"
+  difficulty_message: "\nChoose difficulty: %{difficulties}\n"
   invalid_difficulty_message: "\nInvalid difficulty! Choose difficulty from the listed\n\n"
   hint_message: "\nHint: %{digit}"
   no_hints_left_message: "\nNo hints left"

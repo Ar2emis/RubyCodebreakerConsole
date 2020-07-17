@@ -26,11 +26,12 @@ RSpec.describe CodebreakerConsole::PlayState do
       expect { state.execute }.to output.to_stdout
     end
 
-    context 'with game managment' do
+    context 'when hint asked' do
       original_stdout = $stdout
 
       before do
         $stdout = File.open(File::NULL, 'w')
+        allow(state).to receive(:gets).and_return(described_class::HINT_COMMAND)
       end
 
       after do
@@ -38,37 +39,45 @@ RSpec.describe CodebreakerConsole::PlayState do
       end
 
       it "gives a hint if user has entered '#{described_class::HINT_COMMAND}'" do
-        allow(state).to receive(:gets).and_return(described_class::HINT_COMMAND)
         state.execute
         expect(game).to have_received(:take_hint)
       end
 
       it 'puts no hints left message if no hints left' do
-        allow(state).to receive(:gets).and_return(described_class::HINT_COMMAND)
         allow(game).to receive(:take_hint) { raise Codebreaker::NoHintsLeftError }
         expect { state.execute }.to output.to_stdout
       end
+    end
 
-      it 'puts invalid command message if user has entered invalid guess' do
-        allow(state).to receive(:gets).and_return('invalid guess')
-        allow(Codebreaker::Guess).to receive(:new) { raise Codebreaker::NonNumericStringError }
-        expect(state.execute).to eq described_class
+    it 'puts invalid command message if user has entered invalid guess' do
+      allow(state).to receive(:gets).and_return('invalid guess')
+      allow(Codebreaker::Guess).to receive(:new) { raise Codebreaker::NonNumericStringError }
+      expect(state.execute).to eq described_class
+    end
+
+    context 'when guess entered' do
+      original_stdout = $stdout
+
+      before do
+        $stdout = File.open(File::NULL, 'w')
+        allow(state).to receive(:gets).and_return('1111')
+      end
+
+      after do
+        $stdout = original_stdout
       end
 
       it 'moves to win state if user has won' do
-        allow(state).to receive(:gets).and_return('1111')
         allow(game).to receive(:make_turn).and_return({ status: Codebreaker::Game::WIN_STATUS, result: '++++' })
         expect(state.execute).to eq CodebreakerConsole::WinState
       end
 
       it 'moves to lose state if user has lost' do
-        allow(state).to receive(:gets).and_return('1111')
         allow(game).to receive(:make_turn).and_return({ status: Codebreaker::Game::LOSE_STATUS, result: '+-' })
         expect(state.execute).to eq CodebreakerConsole::LoseState
       end
 
       it 'stays itself if user is still playing' do
-        allow(state).to receive(:gets).and_return('1111')
         allow(game).to receive(:make_turn).and_return({ status: Codebreaker::Game::PLAY_STATUS, result: '++' })
         expect(state.execute).to eq described_class
       end

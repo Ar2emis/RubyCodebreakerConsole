@@ -44,3 +44,6 @@ en:
   save_statistic_message: "Do you want to save statistic? (yes/no)"
   lose_message: "You lose. Code was %{code}"
   restart_message: "\nDo you want to restart the game? (yes/no)"
+  easy_difficulty: 'easy'
+  medium_difficulty: 'medium'
+  hell_difficulty: 'hell'

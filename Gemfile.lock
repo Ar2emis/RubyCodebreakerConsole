@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/Ar2emis/RubyCodebreaker.git
-  revision: f296e6a527d9c7efaa029826ce74090391fbd894
+  revision: 9cb3837ff3b9677486c8df54b4a13b899e877137
   branch: development
   specs:
     codebreaker (0.1.0)
@@ -48,7 +48,7 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.9.0)
     rspec-support (3.9.3)
-    rubocop (0.87.1)
+    rubocop (0.88.0)
       parallel (~> 1.10)
       parser (>= 2.7.1.1)
       rainbow (>= 2.2.2, < 4.0)
@@ -59,8 +59,8 @@ GEM
       unicode-display_width (>= 1.4.0, < 2.0)
     rubocop-ast (0.1.0)
       parser (>= 2.7.0.1)
-    rubocop-rspec (1.41.0)
-      rubocop (>= 0.68.1)
+    rubocop-rspec (1.42.0)
+      rubocop (>= 0.87.0)
     ruby-progressbar (1.10.1)
     ruby_parser (3.14.2)
       sexp_processor (~> 4.9)

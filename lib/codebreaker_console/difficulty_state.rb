@@ -3,27 +3,33 @@
 module CodebreakerConsole
   class DifficultyState < GameState
     def execute
-      puts I18n.t(:difficulty_message, difficulties: difficulties)
-
-      context.game = Codebreaker::GameFactory.new.create_game(context.user, user_input.to_sym)
-      context.transit_to(PlayState.new)
-    rescue Codebreaker::UnknownDifficultyError
-      handle_invalid_difficulty
-    end
-
-    def difficulties
-      [
-        Codebreaker::GameFactory::EASY_DIFFICULTY.name,
-        Codebreaker::GameFactory::MEDIUM_DIFFICULTY.name,
-        Codebreaker::GameFactory::HELL_DIFFICULTY.name
-      ].join(', ')
+      puts I18n.t(:difficulty_message, difficulties: difficulties.keys.join(', '))
+      difficulty = difficulties[user_input.downcase]
+      if difficulty.nil?
+        invalid_difficulty_message
+      else
+        move_to_next_stage(difficulty)
+      end
     end
 
     private
 
-    def handle_invalid_difficulty
+    def difficulties
+      {
+        I18n.t(:easy_difficulty) => Codebreaker::Difficulty.difficulty(:easy),
+        I18n.t(:medium_difficulty) => Codebreaker::Difficulty.difficulty(:medium),
+        I18n.t(:hell_difficulty) => Codebreaker::Difficulty.difficulty(:hell)
+      }
+    end
+
+    def invalid_difficulty_message
       puts(I18n.t(:invalid_difficulty_message))
-      context.transit_to(self.class.new)
+      context.transit_to(self)
+    end
+
+    def move_to_next_stage(difficulty)
+      context.difficulty = difficulty
+      context.transit_to(CreateGameState.new)
     end
   end
 end

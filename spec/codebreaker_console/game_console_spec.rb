@@ -29,7 +29,7 @@ RSpec.describe CodebreakerConsole::GameConsole do
       allow(CodebreakerConsole::GreetingState).to receive(:new).and_return(greeting_state)
     end
 
-    it 'moves game to another state' do
+    it 'moves game to greeting state' do
       console.start
       expect(console.instance_variable_get(:@game_state)).to eql greeting_state
     end

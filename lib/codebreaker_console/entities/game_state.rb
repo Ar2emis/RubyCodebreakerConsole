@@ -2,8 +2,8 @@
 
 module CodebreakerConsole
   class GameState
-    EXIT_COMMAND = 'exit'
-
+    EXIT_COMMAND = I18n.t(:exit_command)
+    YES = I18n.t(:yes_command)
     attr_accessor :context
 
     def execute
@@ -13,8 +13,8 @@ module CodebreakerConsole
     private
 
     def user_input
-      command = gets.chomp.downcase
-      context.transit_to(ExitState.new) if command == EXIT_COMMAND
+      command = gets.chomp
+      context.transit_to(ExitState.new) if command.downcase == EXIT_COMMAND
       command
     end
   end

@@ -4,21 +4,17 @@ module CodebreakerConsole
   class DifficultyState < GameState
     def execute
       puts I18n.t(:difficulty_message, difficulties: difficulties.keys.join(', '))
-      difficulty = difficulties[user_input.downcase]
-      if difficulty.nil?
-        invalid_difficulty_message
-      else
-        move_to_next_stage(difficulty)
-      end
+      difficulty = difficulties[user_input]
+      difficulty.nil? ? invalid_difficulty_message : move_to_next_stage(difficulty)
     end
 
     private
 
     def difficulties
       {
-        I18n.t(:easy_difficulty) => Codebreaker::Difficulty.difficulty(:easy),
-        I18n.t(:medium_difficulty) => Codebreaker::Difficulty.difficulty(:medium),
-        I18n.t(:hell_difficulty) => Codebreaker::Difficulty.difficulty(:hell)
+        I18n.t(:easy_difficulty) => Codebreaker::Difficulty.difficulties(:easy),
+        I18n.t(:medium_difficulty) => Codebreaker::Difficulty.difficulties(:medium),
+        I18n.t(:hell_difficulty) => Codebreaker::Difficulty.difficulties(:hell)
       }
     end
 

@@ -20,33 +20,33 @@ RSpec.describe CodebreakerConsole::WinState do
     context
   end
 
-  before do
-    allow(state).to receive(:gets).and_return('no')
-  end
-
   describe '#execute' do
     it 'puts message to console' do
+      allow(state).to receive(:user_input).and_return('no')
       expect { state.execute }.to output.to_stdout
     end
 
     context 'with statistic saving' do
-      original_stdout = $stdout
-
       before do
-        $stdout = File.open(File::NULL, 'w')
-      end
-
-      after do
-        $stdout = original_stdout
+        allow(state).to receive(:puts)
       end
 
       it "saves statistic if user has entered '#{described_class::YES}'" do
-        allow(state).to receive(:gets).and_return(described_class::YES)
+        allow(state).to receive(:user_input).and_return(described_class::YES)
         state.execute
         expect(game).to have_received(:save_statistic)
       end
 
+      it "exits if user has entered '#{described_class::EXIT_COMMAND}'" do
+        allow(state).to receive(:gets).and_return(described_class::EXIT_COMMAND)
+        exit_state = instance_double(CodebreakerConsole::ExitState)
+        allow(CodebreakerConsole::ExitState).to receive(:new).and_return(exit_state)
+        state.execute
+        expect(context).to have_received(:transit_to).with(exit_state)
+      end
+
       it 'does not save statistic if user has entered anything else' do
+        allow(state).to receive(:user_input).and_return('no')
         state.execute
         expect(game).not_to have_received(:save_statistic)
       end

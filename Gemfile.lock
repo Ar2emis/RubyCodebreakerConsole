@@ -1,9 +1,10 @@
 GIT
   remote: https://github.com/Ar2emis/RubyCodebreaker.git
-  revision: 9cb3837ff3b9677486c8df54b4a13b899e877137
+  revision: 346c38eb7b86d73d8b18303cf1533ba681c5c385
   branch: development
   specs:
     codebreaker (0.1.0)
+      i18n
 
 GEM
   remote: https://rubygems.org/
@@ -19,7 +20,7 @@ GEM
     fasterer (0.8.3)
       colorize (~> 0.7)
       ruby_parser (>= 3.14.1)
-    i18n (1.8.3)
+    i18n (1.8.4)
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.4)
     lefthook (0.7.2)
@@ -57,7 +58,7 @@ GEM
       rubocop-ast (>= 0.1.0, < 1.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 2.0)
-    rubocop-ast (0.1.0)
+    rubocop-ast (0.2.0)
       parser (>= 2.7.0.1)
     rubocop-rspec (1.42.0)
       rubocop (>= 0.87.0)
@@ -69,7 +70,7 @@ GEM
       docile (~> 1.1)
       simplecov-html (~> 0.11)
     simplecov-html (0.12.2)
-    solargraph (0.39.11)
+    solargraph (0.39.12)
       backport (~> 1.1)
       benchmark
       bundler (>= 1.17.2)

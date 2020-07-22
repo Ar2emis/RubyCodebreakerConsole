@@ -2,8 +2,6 @@
 
 module CodebreakerConsole
   class WinState < GameState
-    YES = 'yes'
-
     def execute
       puts(I18n.t(:win_message, code: context.game.code.join))
       ask_to_save_statistic

@@ -5,8 +5,16 @@ module CodebreakerConsole
     def execute
       puts I18n.t(:user_name_message)
       context.user = Codebreaker::User.new(user_input)
-      context.transit_to(DifficultyState.new)
-    rescue Codebreaker::InvalidStringLengthError
+      if context.user.valid?
+        context.transit_to(DifficultyState.new)
+      else
+        invalid_user_name_message
+      end
+    end
+
+    private
+
+    def invalid_user_name_message
       puts(I18n.t(:invalid_user_name_message))
       context.transit_to(self)
     end

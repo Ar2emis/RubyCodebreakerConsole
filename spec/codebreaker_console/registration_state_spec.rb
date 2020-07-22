@@ -11,32 +11,33 @@ RSpec.describe CodebreakerConsole::RegistrationState do
     context = instance_double(CodebreakerConsole::GameConsole)
     allow(context).to receive(:transit_to)
     allow(context).to receive(:user=)
+    allow(context).to receive(:user).and_return(user)
     context
+  end
+  let(:user) do
+    user = instance_double(Codebreaker::User)
+    allow(user).to receive(:valid?).and_return(true)
+    user
   end
 
   before do
-    allow(state).to receive(:gets).and_return('John Doe')
+    allow(state).to receive(:user_input).and_return('John Doe')
   end
 
   describe '#execute' do
     it 'puts message to console' do
-      expect { state.execute }.to output.to_stdout
+      expect { state.execute }.to output(/#{I18n.t(:user_name_message)}/).to_stdout
     end
 
     it 'puts invalid name message to console if user name is invalid' do
-      allow(state).to receive(:gets).and_return('')
-      expect { state.execute }.to output.to_stdout
+      allow(state).to receive(:user_input).and_return('')
+      allow(user).to receive(:valid?).and_return(false)
+      expect { state.execute }.to output(/#{I18n.t(:invalid_user_name_message)}/).to_stdout
     end
 
-    context 'with game restart' do
-      original_stdout = $stdout
-
+    context 'with user logic' do
       before do
-        $stdout = File.open(File::NULL, 'w')
-      end
-
-      after do
-        $stdout = original_stdout
+        allow(state).to receive(:puts)
       end
 
       it 'registers user if user has entered name' do

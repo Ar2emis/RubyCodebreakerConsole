@@ -2,13 +2,12 @@
 
 module CodebreakerConsole
   class MenuState < GameState
-    START_COMMAND = 'start'
-    RULES_COMMAND = 'rules'
-    STATS_COMMAND = 'stats'
+    START_COMMAND = I18n.t(:start_command)
+    RULES_COMMAND = I18n.t(:rules_command)
+    STATS_COMMAND = I18n.t(:stats_command)
 
     def execute
-      puts I18n.t(:menu, start: START_COMMAND, rules: RULES_COMMAND, stats: STATS_COMMAND, exit: EXIT_COMMAND)
-
+      puts(I18n.t(:menu, start: START_COMMAND, rules: RULES_COMMAND, stats: STATS_COMMAND, exit: EXIT_COMMAND))
       command = user_input
       context.transit_to(manage_command(command))
     end

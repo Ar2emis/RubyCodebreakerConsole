@@ -2,13 +2,9 @@
 
 module CodebreakerConsole
   class RestartState < GameState
-    YES = 'yes'
-
     def execute
-      puts I18n.t(:restart_message)
-      answer = user_input
-
-      if answer.downcase == YES
+      puts(I18n.t(:restart_message))
+      if user_input == YES
         context.game.restart
         context.transit_to(PlayState.new)
       else

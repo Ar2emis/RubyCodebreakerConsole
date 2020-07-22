@@ -20,7 +20,7 @@ RSpec.describe CodebreakerConsole::RestartState do
   end
 
   before do
-    allow(state).to receive(:gets).and_return('no')
+    allow(state).to receive(:user_input).and_return('no')
   end
 
   describe '#execute' do
@@ -29,18 +29,12 @@ RSpec.describe CodebreakerConsole::RestartState do
     end
 
     context 'with game restart' do
-      original_stdout = $stdout
-
       before do
-        $stdout = File.open(File::NULL, 'w')
-      end
-
-      after do
-        $stdout = original_stdout
+        allow(state).to receive(:puts)
       end
 
       it "restarts the game if user has entered '#{described_class::YES}'" do
-        allow(state).to receive(:gets).and_return(described_class::YES)
+        allow(state).to receive(:user_input).and_return(described_class::YES)
         state.execute
         expect(game).to have_received(:restart)
       end

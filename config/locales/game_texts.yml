@@ -3,6 +3,9 @@ en:
     Codebreaker Console Game
     Welcome to Codebreaker game!
 
+  start_command: 'start'
+  rules_command: 'rules'
+  stats_command: 'stats'
   menu: |+
     Menu:
 
@@ -18,6 +21,7 @@ en:
     Take a hint (enter '%{hint_command}')
     Exit to menu (enter '%{exit_command}')
 
+  hint_command: 'hint'
   statistic_title: "\nUser statistics\n\n"
   statistic_body: |+
     Rating: %{rating}
@@ -33,6 +37,7 @@ en:
 
     Good bye!
     Press 'Enter' to exit...
+  exit_command: 'exit'
   user_name_message: "\nEnter your name: "
   invalid_user_name_message: "\nInvalid name! Name length should be from 3 to 20 characters. Try again\n"
   difficulty_message: "\nChoose difficulty: %{difficulties}\n"
@@ -42,8 +47,9 @@ en:
   coincidence_message: "\nCoincidence: %{match}\n"
   win_message: "\nYou won! Code was %{code}"
   save_statistic_message: "Do you want to save statistic? (yes/no)"
-  lose_message: "You lose. Code was %{code}"
+  lose_message: "You lost. Code was %{code}"
   restart_message: "\nDo you want to restart the game? (yes/no)"
   easy_difficulty: 'easy'
   medium_difficulty: 'medium'
   hell_difficulty: 'hell'
+  yes_command: 'yes'

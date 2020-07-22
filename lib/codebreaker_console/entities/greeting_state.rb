@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 module CodebreakerConsole
-  class RulesState < GameState
+  class GreetingState < GameState
     def execute
-      puts I18n.t(:rules)
-
+      puts(I18n.t(:greeting))
       context.transit_to(MenuState.new)
     end
   end

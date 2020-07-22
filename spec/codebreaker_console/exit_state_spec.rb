@@ -10,7 +10,7 @@ RSpec.describe CodebreakerConsole::ExitState do
 
   describe '#execute' do
     it 'puts message to console' do
-      expect { state.execute }.to output.to_stdout
+      expect { state.execute }.to output(/#{I18n.t(:exit_message)}/).to_stdout
     end
   end
 end

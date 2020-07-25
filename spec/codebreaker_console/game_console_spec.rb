@@ -18,20 +18,20 @@ RSpec.describe CodebreakerConsole::GameConsole do
   end
 
   describe '#start' do
-    let(:greeting_state) do
-      state = instance_double(CodebreakerConsole::GreetingState)
+    let(:menu_state) do
+      state = instance_double(CodebreakerConsole::MenuState)
       allow(state).to receive(:context=).with(console)
       allow(state).to receive(:execute)
       state
     end
 
     before do
-      allow(CodebreakerConsole::GreetingState).to receive(:new).and_return(greeting_state)
+      allow(CodebreakerConsole::MenuState).to receive(:new).and_return(menu_state)
     end
 
-    it 'moves game to greeting state' do
+    it 'moves game to menu state' do
       console.start
-      expect(console.instance_variable_get(:@game_state)).to eql greeting_state
+      expect(console.instance_variable_get(:@game_state)).to eql menu_state
     end
   end
 end

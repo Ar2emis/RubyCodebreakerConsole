@@ -10,40 +10,46 @@ RSpec.describe CodebreakerConsole::RegistrationState do
   let(:context) do
     context = instance_double(CodebreakerConsole::GameConsole)
     allow(context).to receive(:transit_to)
-    allow(context).to receive(:user=)
-    allow(context).to receive(:user).and_return(user)
+    allow(context).to receive(:game=)
+    allow(context).to receive(:game).and_return(game)
     context
   end
-  let(:user) do
-    user = instance_double(Codebreaker::User)
-    allow(user).to receive(:valid?).and_return(true)
-    user
+  let(:game) do
+    game = instance_double(Codebreaker::Game)
+    allow(game).to receive(:start)
+    game
   end
 
-  before do
-    allow(state).to receive(:user_input).and_return('John Doe')
-  end
+  let(:valid_name) { Faker::Name.first_name }
+  let(:invalid_name) { 'a' * (Codebreaker::User::USERNAME_MIN_LENGTH - 1) }
+  let(:valid_difficulty_name) { I18n.t(:easy_difficulty) }
+  let(:invalid_difficulty_name) { 'invalid_difficulty_name' }
+  let(:exit_command) { described_class::EXIT_COMMAND }
+  let(:valid_inputs) { [valid_name, valid_difficulty_name] }
+  let(:invalid_name_inputs) { [invalid_name, valid_name, valid_difficulty_name] }
+  let(:invalid_difficulty_inputs) { [valid_name, invalid_difficulty_name, valid_difficulty_name] }
+  let(:exit_inputs) { [exit_command, valid_name, valid_difficulty_name] }
 
   describe '#execute' do
     it 'puts message to console' do
+      allow(state).to receive(:gets).and_return(*valid_inputs)
       expect { state.execute }.to output(/#{I18n.t(:user_name_message)}/).to_stdout
     end
 
-    it 'puts invalid name message to console if user name is invalid' do
-      allow(state).to receive(:user_input).and_return('')
-      allow(user).to receive(:valid?).and_return(false)
+    it 'puts invalid name message to console if name is invalid' do
+      allow(state).to receive(:gets).and_return(*invalid_name_inputs)
       expect { state.execute }.to output(/#{I18n.t(:invalid_user_name_message)}/).to_stdout
     end
 
-    context 'with user logic' do
-      before do
-        allow(state).to receive(:puts)
-      end
+    it 'puts invalid difficulty message to console if difficulty is invalid' do
+      allow(state).to receive(:gets).and_return(*invalid_difficulty_inputs)
+      expect { state.execute }.to output(/#{I18n.t(:invalid_difficulty_message)}/).to_stdout
+    end
 
-      it 'registers user if user has entered name' do
-        state.execute
-        expect(context).to have_received(:user=)
-      end
+    it "puts exit message and exits from the game if user has entered #{described_class::EXIT_COMMAND}" do
+      allow(state).to receive(:gets).and_return(*exit_inputs)
+      allow(state).to receive(:exit)
+      expect { state.execute }.to output(/#{I18n.t(:exit_message)}/).to_stdout
     end
   end
 end

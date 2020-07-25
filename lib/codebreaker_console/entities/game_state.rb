@@ -14,8 +14,10 @@ module CodebreakerConsole
 
     def user_input
       command = gets.chomp
-      context.transit_to(ExitState.new) if command.downcase == EXIT_COMMAND
-      command
+      return command unless command == EXIT_COMMAND
+
+      puts(I18n.t(:exit_message))
+      exit
     end
   end
 end

@@ -55,33 +55,32 @@ RSpec.describe CodebreakerConsole::PlayState do
     end
 
     context 'when guess entered' do
-      let(:win_state) { instance_double(CodebreakerConsole::WinState) }
-      let(:lose_state) { instance_double(CodebreakerConsole::LoseState) }
+      let(:results_state) { instance_double(CodebreakerConsole::ResultsState) }
       let(:guess) do
         guess = instance_double(Codebreaker::Guess)
         allow(guess).to receive(:valid?).and_return(true)
         guess
       end
+      let(:entered_code) { '1111' }
 
       before do
         allow(state).to receive(:puts)
-        allow(state).to receive(:user_input).and_return('1111')
+        allow(state).to receive(:user_input).and_return(entered_code)
         allow(Codebreaker::Guess).to receive(:new).and_return(guess)
-        allow(CodebreakerConsole::LoseState).to receive(:new).and_return(lose_state)
-        allow(CodebreakerConsole::WinState).to receive(:new).and_return(win_state)
+        allow(CodebreakerConsole::ResultsState).to receive(:new).and_return(results_state)
       end
 
-      it 'moves to win state if user has won' do
+      it 'moves to results state if user has won' do
         allow(game).to receive(:win?).and_return(true)
         state.execute
-        expect(context).to have_received(:transit_to).with(win_state)
+        expect(context).to have_received(:transit_to).with(results_state)
       end
 
-      it 'moves to lose state if user has lost' do
+      it 'moves to results state if user has lost' do
         allow(game).to receive(:win?).and_return(false)
         allow(game).to receive(:lose?).and_return(true)
         state.execute
-        expect(context).to have_received(:transit_to).with(lose_state)
+        expect(context).to have_received(:transit_to).with(results_state)
       end
 
       it 'stays itself if user is still playing' do

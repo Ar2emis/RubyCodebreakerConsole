@@ -6,6 +6,7 @@ gem 'codebreaker', github: 'Ar2emis/RubyCodebreaker', branch: 'development'
 gem 'i18n'
 
 group :test do
+  gem 'faker'
   gem 'rspec'
   gem 'simplecov'
 end

@@ -2,6 +2,7 @@
 
 require 'bundler/setup'
 require 'yaml'
+require 'faker'
 
 require 'simplecov'
 SimpleCov.start do

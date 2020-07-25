@@ -2,10 +2,10 @@
 
 module CodebreakerConsole
   class GameConsole
-    attr_accessor :game, :user, :difficulty
+    attr_accessor :game
 
     def start
-      transit_to(GreetingState.new)
+      transit_to(MenuState.new)
     end
 
     def transit_to(game_state)

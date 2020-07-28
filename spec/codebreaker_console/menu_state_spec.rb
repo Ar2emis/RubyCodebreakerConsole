@@ -1,16 +1,13 @@
 # frozen_string_literal: true
 
 RSpec.describe CodebreakerConsole::MenuState do
-  subject(:state) do
-    state = described_class.new
-    state.context = context
-    state
-  end
+  subject(:state) { described_class.new }
 
-  let(:context) do
-    context = instance_double(CodebreakerConsole::GameConsole)
+  let(:context) { instance_double(CodebreakerConsole::GameConsole) }
+
+  before do
     allow(context).to receive(:transit_to)
-    context
+    state.context = context
   end
 
   describe '#execute' do
@@ -36,14 +33,14 @@ RSpec.describe CodebreakerConsole::MenuState do
     end
 
     context "when user has entered '#{described_class::STATS_COMMAND}'" do
+      before { allow(state).to receive(:user_input).and_return(described_class::STATS_COMMAND) }
+
       it 'puts statistic if statistic exists' do
-        allow(state).to receive(:user_input).and_return(described_class::STATS_COMMAND)
         allow(Codebreaker::Game).to receive(:user_statistic) { YAML.load_file(stats_fixture)[:user_statistics] }
         expect { state.execute }.to output(/#{I18n.t(:statistic_title)}/).to_stdout
       end
 
       it 'puts that statistic empty if no statistic exists' do
-        allow(state).to receive(:user_input).and_return(described_class::STATS_COMMAND)
         allow(Codebreaker::Game).to receive(:user_statistic).and_return([])
         expect { state.execute }.to output(/#{I18n.t(:empty_statistic)}/).to_stdout
       end

@@ -17,9 +17,11 @@ module CodebreakerConsole
     end
 
     def give_hint
-      puts(I18n.t(:hint_message, digit: context.game.take_hint))
-    rescue Codebreaker::NoHintsLeftError
-      puts(I18n.t(:no_hints_left_message))
+      if @context.game.hints_amount.positive?
+        puts(I18n.t(:hint_message, digit: context.game.take_hint))
+      else
+        puts(I18n.t(:no_hints_left_message))
+      end
     end
 
     def make_turn(code)

@@ -1,28 +1,22 @@
 # frozen_string_literal: true
 
 RSpec.describe CodebreakerConsole::ResultsState do
-  subject(:state) do
-    state = described_class.new
-    state.context = context
-    allow(state).to receive(:user_input).and_return('')
-    state
-  end
+  subject(:state) { described_class.new }
 
-  let(:context) do
-    context = instance_double(CodebreakerConsole::GameConsole)
-    allow(context).to receive(:transit_to)
-    allow(context).to receive(:game).and_return(game)
-    context
-  end
-  let(:game) do
-    game = instance_double(Codebreaker::Game)
-    allow(game).to receive(:code).and_return(code)
-    allow(game).to receive(:restart)
-    game
-  end
+  let(:context) { instance_double(CodebreakerConsole::GameConsole) }
+  let(:game) { instance_double(Codebreaker::Game) }
   let(:code) { [1, 2, 3, 4] }
 
   describe '#execute' do
+    before do
+      state.context = context
+      allow(context).to receive(:transit_to)
+      allow(context).to receive(:game).and_return(game)
+      allow(game).to receive(:code).and_return(code)
+      allow(game).to receive(:restart)
+      allow(state).to receive(:user_input).and_return('')
+    end
+
     it 'puts lose message if user has lost' do
       allow(game).to receive(:win?).and_return(false)
       expect { state.execute }.to output(/#{I18n.t(:lose_message, code: code)}/).to_stdout

@@ -13,7 +13,7 @@ module CodebreakerConsole
     private
 
     def ask_username
-      (1..nil).each do
+      loop do
         puts I18n.t(:user_name_message)
         @user = Codebreaker::User.new(user_input)
         return if @user.valid?
@@ -23,7 +23,7 @@ module CodebreakerConsole
     end
 
     def ask_difficulty
-      (1..nil).each do
+      loop do
         puts I18n.t(:difficulty_message, difficulties: difficulties.keys.join(', '))
         @difficulty = difficulties[user_input]
         return unless @difficulty.nil?

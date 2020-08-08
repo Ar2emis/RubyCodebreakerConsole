@@ -1,0 +1,29 @@
+---
+:user_statistics:
+- !ruby/object:Codebreaker::UserStatistics
+  user: !ruby/object:Codebreaker::User
+    name: artyom
+  difficulty: !ruby/object:Codebreaker::Difficulty
+    name: Medium
+    attempts: 10
+    hints: 1
+  attempts: 2
+  hints: 1
+- !ruby/object:Codebreaker::UserStatistics
+  user: !ruby/object:Codebreaker::User
+    name: artyom
+  difficulty: !ruby/object:Codebreaker::Difficulty
+    name: Hell
+    attempts: 5
+    hints: 1
+  attempts: 2
+  hints: 1
+- !ruby/object:Codebreaker::UserStatistics
+  user: !ruby/object:Codebreaker::User
+    name: afgsdf
+  difficulty: !ruby/object:Codebreaker::Difficulty
+    name: Easy
+    attempts: 15
+    hints: 2
+  attempts: 12
+  hints: 2
